@@ -7,7 +7,7 @@ To create custom forms for surveys and questionnaires!
 ### Tasks
 
 #### Backend APIs
-- [ ] User can register and login.
+- [X] User can register and login.
 - [ ] Add dynamic form inputs by default input types(text, date picker, number).
   **Reference form inputs**
   <img alt="form-setting" src="form-setting.png">
