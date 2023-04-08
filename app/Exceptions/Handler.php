@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\ApiResponseHelper;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -44,5 +49,24 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        $this->renderable(function (Throwable $e, Request $request) {
+            if ($e instanceof NotFoundHttpException) {
+                return ApiResponseHelper::common(sprintf('%s not found', $this->prettyModelNotFound($e)), $e, 404);
+            }
+
+            return ApiResponseHelper::common('Something went wrong', $e);
+        });
+    }
+
+    private function prettyModelNotFound(NotFoundHttpException $exception): string
+    {
+        if ($exception->getPrevious() instanceof ModelNotFoundException && !is_null($exception->getPrevious()->getModel())) {
+            $model = preg_replace('/[A-Z]/', ' $0', class_basename($exception->getPrevious()->getModel()));
+
+            return Str::of($model)->ltrim()->ucfirst()->toString();
+        }
+
+        return 'resource';
     }
 }

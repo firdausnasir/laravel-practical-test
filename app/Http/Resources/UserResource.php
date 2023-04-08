@@ -15,12 +15,15 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        /* @var User $this */
+        /* @var User|JsonResource $this */
         return [
             'id'            => $this->id,
             'name'          => $this->name,
             'email'         => $this->email,
             'registered_at' => $this->created_at->toIso8601String(),
+            $this->mergeWhen($this->relationLoaded('formSurvey'), [
+                'form_survey' => Request::create(route('form.public-show', $this->formSurvey))->path(),
+            ]),
         ];
     }
 }
