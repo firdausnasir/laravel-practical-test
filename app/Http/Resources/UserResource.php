@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'email'         => $this->email,
             'registered_at' => $this->created_at->toIso8601String(),
             $this->mergeWhen($this->relationLoaded('formSurvey'), [
-                'form_survey' => Request::create(route('form.public-show', $this->formSurvey))->path(),
+                'form_survey' => Request::create(route('form.index', $this->formSurvey))->path(),
             ]),
         ];
     }

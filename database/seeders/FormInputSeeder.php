@@ -59,7 +59,7 @@ class FormInputSeeder extends Seeder
                         $items[] = ['name' => $secondKey, 'value' => $item];
                     }
 
-                    $formInput->attributes()->createMany($items);
+                    $formInput->formAttributes()->createMany($items);
                 })->toArray();
         }
     }

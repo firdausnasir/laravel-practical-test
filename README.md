@@ -8,15 +8,15 @@ To create custom forms for surveys and questionnaires!
 
 #### Backend APIs
 - [X] User can register and login.
-- [ ] Add dynamic form inputs by default input types(text, date picker, number).
+- [X] Add dynamic form inputs by default input types(text, date picker, number).
   **Reference form inputs**
   <img alt="form-setting" src="form-setting.png">
 
 #### Public Form
 You can use Blade. UI can be simple.
 
-- [ ] Customer can submit a form depending on the form render.
-- [ ] After submitting the form, API has to send mail.
+- [X] Customer can submit a form depending on the form render.
+- [X] After submitting the form, API has to send mail.
 
 <hr>
 

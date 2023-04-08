@@ -8,7 +8,7 @@ class FormInput extends Model
 {
     protected $fillable = ['name', 'type'];
 
-    public function attributes()
+    public function formAttributes()
     {
         return $this->hasMany(FormInputAttribute::class);
     }

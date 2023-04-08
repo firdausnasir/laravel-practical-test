@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [\App\Http\Controllers\AuthenticationController::class, 'register']);
 Route::post('login', [\App\Http\Controllers\AuthenticationController::class, 'login']);
 
-Route::get('form/{formSurvey:public_form_id}', function (\App\Models\FormSurvey $formSurvey) {
-    return $formSurvey;
-})->name('form.public-show');
+Route::group(['prefix' => 'form/{formSurvey:public_form_id}'], function () {
+    Route::put('update', [\App\Http\Controllers\FormController::class, 'update'])->name('api.form.update');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

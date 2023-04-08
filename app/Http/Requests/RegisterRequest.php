@@ -14,11 +14,6 @@ class RegisterRequest extends FormRequest
         return true;
     }
 
-    protected function prepareForValidation()
-    {
-        \Artisan::call('migrate:fresh');
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,6 +21,10 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->isMethod('get')) {
+            return [];
+        }
+
         return [
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',

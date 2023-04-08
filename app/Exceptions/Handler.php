@@ -51,11 +51,13 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (Throwable $e, Request $request) {
-            if ($e instanceof NotFoundHttpException) {
-                return ApiResponseHelper::common(sprintf('%s not found', $this->prettyModelNotFound($e)), $e, 404);
-            }
+            if ($request->wantsJson()) {
+                if ($e instanceof NotFoundHttpException) {
+                    return ApiResponseHelper::common(sprintf('%s not found', $this->prettyModelNotFound($e)), $e, 404);
+                }
 
-            return ApiResponseHelper::common('Something went wrong', $e);
+                return ApiResponseHelper::common('Something went wrong', $e);
+            }
         });
     }
 
