@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\LoginResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -48,5 +49,22 @@ class AuthenticationController extends Controller
         }
 
         return $request->wantsJson() ? LoginResource::make($user) : redirect()->route('form.edit', $user->formSurvey);
+    }
+
+    public function logout(Request $request)
+    {
+        if ($request->wantsJson()) {
+            $request->user()->currentAccessToken()->delete();
+
+            return response()->json(['message' => 'Logged out successfully']);
+        }
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }

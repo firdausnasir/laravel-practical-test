@@ -21,6 +21,13 @@ Route::group(['prefix' => 'form/{formSurvey:public_form_id}'], function () {
     Route::put('update', [\App\Http\Controllers\FormController::class, 'update'])->name('api.form.update');
 });
 
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('logout', [\App\Http\Controllers\AuthenticationController::class, 'logout']);
+    Route::get('user', function (Request $request) {
+        return $request->user();
+    });
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

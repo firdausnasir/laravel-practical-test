@@ -26,3 +26,5 @@ Route::group(['prefix' => 'form/{formSurvey:public_form_id}'], function () {
     Route::get('responses', [\App\Http\Controllers\FormController::class, 'responses'])->name('form.responses')->middleware('auth');
     Route::post('submit', [\App\Http\Controllers\FormController::class, 'submitForm'])->name('form.submit-form');
 });
+
+Route::get('logout', [\App\Http\Controllers\AuthenticationController::class, 'logout'])->name('logout')->middleware('auth');
