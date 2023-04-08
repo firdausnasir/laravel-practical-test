@@ -1,5 +1,9 @@
 # Laravel Practical Test
 
+## Installation
+
+See [Installation](INSTALLATION.md) on how to install this project.
+
 ## The Task: Custom Forms
 
 To create custom forms for surveys and questionnaires!
@@ -7,16 +11,17 @@ To create custom forms for surveys and questionnaires!
 ### Tasks
 
 #### Backend APIs
-- [X] User can register and login.
-- [X] Add dynamic form inputs by default input types(text, date picker, number).
+
+- [ ] User can register and login.
+- [ ] Add dynamic form inputs by default input types(text, date picker, number).
   **Reference form inputs**
   <img alt="form-setting" src="form-setting.png">
 
 #### Public Form
 You can use Blade. UI can be simple.
 
-- [X] Customer can submit a form depending on the form render.
-- [X] After submitting the form, API has to send mail.
+- [ ] Customer can submit a form depending on the form render.
+- [ ] After submitting the form, API has to send mail.
 
 <hr>
 
