@@ -32,7 +32,7 @@
 |--------|--------------|-----------------------------|----------------------|
 | GET    | register     | Show registration form      | No                   |
 | POST   | register     | Register a new user         | No                   |
-| POST   | api/register | Register a new user via api | No                   |
+| POST   | api/register | Register a new user via API | No                   |
 
 * Login
 
@@ -40,14 +40,14 @@
 |--------|--------------|-----------------------------|----------------------|
 | GET    | login        | Show login form             | No                   |
 | POST   | login        | Login existing user         | No                   |
-| POST   | api/register | Login existing user via api | No                   |
+| POST   | api/register | Login existing user via API | No                   |
 
 * Logout
 
 | Method | Endpoint   | Description                  | Needs Authentication |
 |--------|------------|------------------------------|----------------------|
 | POST   | logout     | Logout existing user         | Yes                  |
-| POST   | api/logout | Logout existing user via api | Yes                  |
+| POST   | api/logout | Logout existing user via API | Yes                  |
 
 * Survey
 
@@ -57,8 +57,8 @@
 | GET    | form/{uuid}/edit       | Show edit survey form                    | Yes                  |
 | GET    | form/{uuid}/responses  | Get survey form responses                | Yes                  |
 | POST   | form/{uuid}/submit     | Submit survey form                       | No                   |
-| GET    | api/form/input/all     | Get all form input ids                   | Yes                  |
-| POST   | api/form/{uuid}/update | Update survey form questionnaire via api | Yes                  |
+| GET    | api/form/input/all     | Get all form input ids via API           | Yes                  |
+| POST   | api/form/{uuid}/update | Update survey form questionnaire via API | Yes                  |
 
 * User
 
