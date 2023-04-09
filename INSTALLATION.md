@@ -113,4 +113,3 @@ api/form/{uuid}/update?1=true&2=false&3=false&4=true
 * All endpoints that needs authentication, you need to pass the `Authorization` header with the value
   of `Bearer {token}`
 * You can get the token from `api/register` or `api/login`
-* 
