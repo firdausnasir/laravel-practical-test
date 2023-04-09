@@ -12,9 +12,9 @@ class ApiResponseHelper
 
         if (config('app.debug')) {
             $data = array_merge($data, [
-                'additionalMessage' => $exception?->getMessage(),
-                'file'              => $exception?->getFile(),
-                'line'              => $exception?->getLine(),
+                'error' => $exception?->getMessage(),
+                'file'  => $exception?->getFile(),
+                'line'  => $exception?->getLine(),
             ]);
         }
 

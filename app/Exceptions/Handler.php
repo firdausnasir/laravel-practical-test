@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -56,7 +57,9 @@ class Handler extends ExceptionHandler
                     return ApiResponseHelper::common(sprintf('%s not found', $this->prettyModelNotFound($e)), $e, 404);
                 }
 
-                return ApiResponseHelper::common('Something went wrong', $e);
+                if (!$e instanceof ValidationException) {
+                    return ApiResponseHelper::common('Something went wrong', $e);
+                }
             }
         });
     }
