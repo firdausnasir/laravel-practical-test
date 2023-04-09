@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthenticationController extends Controller
 {
@@ -44,8 +45,12 @@ class AuthenticationController extends Controller
             abort(401, 'Invalid credentials');
         }
 
+        $token = $user->createToken('auth_token')->plainTextToken;
+        $user->append(['token' => $token]);
+
         if (!$request->wantsJson()) {
             Auth::login($user);
+            Session::put('token', $token);
         }
 
         return $request->wantsJson() ? LoginResource::make($user) : redirect()->route('form.edit', $user->formSurvey);

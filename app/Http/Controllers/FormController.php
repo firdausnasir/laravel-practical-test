@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FormInputResource;
 use App\Models\FormInput;
 use App\Models\FormSurvey;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class FormController extends Controller
 {
@@ -31,20 +31,28 @@ class FormController extends Controller
 
     public function update(Request $request, FormSurvey $formSurvey)
     {
-        $data = array_flip($request->all());
+        $formInputIds = FormInput::pluck('id');
 
-        foreach ($formSurvey->questionnaires as $questionnaire) {
-            // if questionnaire is not in request, delete it
-            if (!Arr::has($data, $questionnaire->id)) {
-                $questionnaire->delete();
+        foreach ($request->all() as $key => $item) {
+            // skip if id is not in form inputs
+            if (!in_array($key, $formInputIds->toArray())) {
+                continue;
             }
-        }
 
-        foreach ($data as $key => $inputQuestionnaire) {
-            if (!$formSurvey->questionnaires->firstWhere('id', $key) && FormInput::where('id', $key)->exists()) {
-                $formSurvey->questionnaires()->create([
-                    'form_input_id' => $key,
-                ]);
+            $item = filter_var($item, FILTER_VALIDATE_BOOLEAN);
+
+            if ($item) {
+                // if questionnaire is not in request, create it
+                if (!$formSurvey->questionnaires->firstWhere('form_input_id', $key)) {
+                    $formSurvey->questionnaires()->create([
+                        'form_input_id' => $key,
+                    ]);
+                }
+            } else {
+                // if questionnaire is in request, delete it
+                if ($formSurvey->questionnaires->firstWhere('form_input_id', $key)) {
+                    $formSurvey->questionnaires->firstWhere('form_input_id', $key)->delete();
+                }
             }
         }
 
@@ -67,5 +75,10 @@ class FormController extends Controller
         return view('form.response', [
             'formSurvey' => $formSurvey,
         ]);
+    }
+
+    public function getFormInputs()
+    {
+        return FormInputResource::collection(FormInput::all());
     }
 }

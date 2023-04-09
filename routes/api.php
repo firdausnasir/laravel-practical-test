@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [\App\Http\Controllers\AuthenticationController::class, 'register']);
 Route::post('login', [\App\Http\Controllers\AuthenticationController::class, 'login']);
 
-Route::group(['prefix' => 'form/{formSurvey:public_form_id}'], function () {
-    Route::put('update', [\App\Http\Controllers\FormController::class, 'update'])->name('api.form.update');
-});
+
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('form/input/all', [\App\Http\Controllers\FormController::class, 'getFormInputs'])->name('api.form.input.all');
+    Route::put('form/{formSurvey:public_form_id}/update', [\App\Http\Controllers\FormController::class, 'update'])->name('api.form.update');
+
     Route::post('logout', [\App\Http\Controllers\AuthenticationController::class, 'logout']);
     Route::get('user', function (Request $request) {
         return $request->user();

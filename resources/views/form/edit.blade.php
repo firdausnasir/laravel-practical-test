@@ -33,8 +33,8 @@
 
             let data = {};
             for (let i = 0; i < form.length; i++) {
-                if (form[i].type === 'checkbox' && form[i].checked === true) {
-                    data[form[i].name] = form[i].value;
+                if (form[i].type === 'checkbox') {
+                    data[form[i].value] = form[i].checked === true;
                 }
             }
 
@@ -43,8 +43,11 @@
                 type: 'PUT',
                 _token: '{{ csrf_token() }}',
                 data: data,
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + "{{ session('token') }}");
+                },
                 success: function () {
-                    window.location.href = '{{ route('form.edit', $formSurvey) }}';
+                    location.reload();
                 }
             });
 

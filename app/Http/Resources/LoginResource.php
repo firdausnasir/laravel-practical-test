@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Arr;
 
 class LoginResource extends JsonResource
 {
@@ -16,7 +17,7 @@ class LoginResource extends JsonResource
     {
         return [
             'user'  => UserResource::make($this->resource),
-            'token' => $this->resource->createToken($request->string('device_name', 'default'))->plainTextToken,
+            'token' => $this->whenNotNull(Arr::get($this->resource->getAppends(), 'token'), $this->resource->createToken($request->string('device_name', 'default'))->plainTextToken),
         ];
     }
 }
