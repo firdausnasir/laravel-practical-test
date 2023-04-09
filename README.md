@@ -1,5 +1,9 @@
 # Laravel Practical Test
 
+## Installation
+
+See [Installation](INSTALLATION.md) on how to install this project.
+
 ## The Task: Custom Forms
 
 To create custom forms for surveys and questionnaires!
@@ -7,6 +11,7 @@ To create custom forms for surveys and questionnaires!
 ### Tasks
 
 #### Backend APIs
+
 - [ ] User can register and login.
 - [ ] Add dynamic form inputs by default input types(text, date picker, number).
   **Reference form inputs**
